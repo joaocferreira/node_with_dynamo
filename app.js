@@ -28,7 +28,7 @@ var params = {
   }
 };
 
-dynamodb.createTable(params, function(err, data) {
+dynamodb.createTable(params, (err, data) => {
   if (err) console.error(err);
   else console.log(data);
 });
@@ -43,7 +43,7 @@ app.get('/token', (req, res) => {
     Key: { 'token': tokenKey }
   };
 
-  documentClient.get(params, function (err, data) {
+  documentClient.get(params, (err, data) => {
     if (err) console.error(err);
     else res.send(`Are you ${data.Item ? data.Item.value : 'nobody'}?`);
   });
@@ -59,7 +59,7 @@ app.get('/token/:token', (req, res) => {
     }
   };
 
-  documentClient.put(params, function(err, data) {
+  documentClient.put(params, (err, data) => {
     if (err) console.error(err);
     else res.send(`Welcome ${token}`);
   });

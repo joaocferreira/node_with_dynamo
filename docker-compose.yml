@@ -1,0 +1,21 @@
+version: '3.2'
+services:
+  dynamodb:
+    image: amazon/dynamodb-local
+
+  mock_api:
+    image: mock_api
+    environment:
+      - AWS_REGION=us-west-2
+      - AWS_ACCESS_KEY=foo
+      - AWS_ACCESS_SECRET=bar
+      - DYNAMODB_ENDPOINT=http://dynamodb:8000
+    depends_on:
+      - dynamodb
+    command:
+      node app.js
+    ports:
+      - "4040:4040"
+    volumes:
+      - /usr/src/app/node_modules
+      - ./:/usr/src/app
